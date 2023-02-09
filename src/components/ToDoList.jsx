@@ -29,7 +29,7 @@ function FormTask({ addTask }) {
   return (
     <Form onSubmit={handleSubmit}> 
     <Form.Group>
-      <Form.Label className="fs-3"><b>Add Task to complete</b></Form.Label>
+      <Form.Label className="fs-3 fw-bold text-light"><b>Add Task to complete</b></Form.Label>
       <Form.Control type="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new task" />
     </Form.Group>
     <Button className="primary mb-3 mt-2 fs-5" type="submit">
@@ -96,7 +96,7 @@ const ToDoList = () => {
   return (
     <div className="app">
       <div className="container justify-content-sm-center">
-        <h1 className="text-center m-2">TO-DO LIST 
+        <h1 className="text-center m-2 fw-bold">TO-DO LIST 
         <img className="m-2" src={logo} alt="Logo"  style={{ height: 75, width: 75 }} />
         </h1>
         <FormTask addTask={addTask} />
