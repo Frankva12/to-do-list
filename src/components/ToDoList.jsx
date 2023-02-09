@@ -9,7 +9,7 @@ function Task({ task, index, removeTask, toogleChecked }) {
     <div className="container">
       <div className='row'>
         <span className='fs-5 fw-bold col-6 mb-2'  style={{ textDecoration: task.isDone ? "line-through" : " " }}>{task.text}</span>
-        <Form.Check className='col-5' type="switch" label="Completed" checked={task.isDone} onClick={() => toogleChecked(index, task.isDone)} />
+        <Form.Check className='col-5' type="switch" label="Completed" defaultChecked={task.isDone} onChange={() => toogleChecked(index, task.isDone)} />
         <Button className='col' variant="outline-danger" onClick={() => removeTask(index)}>Delete</Button>
       </div>
     </div>
@@ -57,18 +57,6 @@ const ToDoList = () => {
       text: "This is an example of a task in progress",
       isDone: false
     },
-    {
-      text: "This is an example of a task in progress",
-      isDone: false
-    },
-    {
-      text: "This is an example of a task in progress",
-      isDone: false
-    },
-    {
-      text: "This is an example of a task in progress",
-      isDone: false
-    }
   ]);
 
   const addTask = (text) => {
@@ -102,7 +90,8 @@ const ToDoList = () => {
         <FormTask addTask={addTask} />
         <div>
           {tasks.map((task, index) => (
-            <Card className='mt-1'>
+            <Card className='mt-1' 
+              key={index}>
               <Card.Body>
                 <Task
                 index={index}
