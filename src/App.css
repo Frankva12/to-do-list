@@ -3,7 +3,7 @@
   background-color: rgb(90, 167, 127);
 }
 
-.todo {
+.task {
   align-items: center;
   display: flex;
   font-size: 18px;

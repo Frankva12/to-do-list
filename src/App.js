@@ -4,10 +4,10 @@ import logo from './to-do-list.png'
 import { Button, Card, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Todo({ todo, index, markTask, unmarkTask, removeTask }) {
+function Task({ task, index, markTask, unmarkTask, removeTask }) {
   return (
-    <div className="todo">
-      <span style={{ textDecoration: todo.isDone ? "line-through" : " " }}>{todo.text}</span>
+    <div className="task">
+      <span style={{ textDecoration: task.isDone ? "line-through" : " " }}>{task.text}</span>
       <div>
         <Button variant="outline-success" onClick={() => markTask(index)}>Complete</Button>{' '}
         <Button variant="outline-warning" onClick={() => unmarkTask(index)}>In progress</Button>{' '}
@@ -17,13 +17,13 @@ function Todo({ todo, index, markTask, unmarkTask, removeTask }) {
   );
 }
 
-function FormTodo({ addTodo }) {
+function FormTask({ addTask }) {
   const [value, setValue] = React.useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
     if (!value) return;
-    addTodo(value);
+    addTask(value);
     setValue("");
   };
 
@@ -41,7 +41,7 @@ function FormTodo({ addTodo }) {
 }
 
 function App() {
-  const [todos, setTodos] = React.useState([
+  const [tasks, setTasks] = React.useState([
     {
       text: "This is an example of a task completed",
       isDone: true
@@ -72,27 +72,27 @@ function App() {
     }
   ]);
 
-  const addTodo = text => {
-    const newTodos = [...todos, { text }];
-    setTodos(newTodos);
+  const addTask = text => {
+    const newTasks = [...tasks, { text }];
+    setTasks(newTasks);
   };
 
   const markTask = index => {
-    const newTodos = [...todos];
-    newTodos[index].isDone = true;
-    setTodos(newTodos);
+    const newTasks = [...tasks];
+    newTasks[index].isDone = true;
+    setTasks(newTasks);
   };
 
   const unmarkTask = index => {
-    const newTodos = [...todos];
-    newTodos[index].isDone = false;
-    setTodos(newTodos);
+    const newTasks = [...tasks];
+    newTasks[index].isDone = false;
+    setTasks(newTasks);
   };
 
   const removeTask = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+    const newTasks = [...tasks];
+    newTasks.splice(index, 1);
+    setTasks(newTasks);
   };
 
   return (
@@ -101,15 +101,15 @@ function App() {
         <h1 className="text-center m-2">Todo List 
         <img className="m-2" src={logo} alt="Logo"  style={{ height: 75, width: 75 }} />
         </h1>
-        <FormTodo addTodo={addTodo} />
+        <FormTask addTask={addTask} />
         <div>
-          {todos.map((todo, index) => (
+          {tasks.map((task, index) => (
             <Card>
               <Card.Body>
-                <Todo
+                <Task
                 key={index}
                 index={index}
-                todo={todo}
+                task={task}
                 unmarkTask={unmarkTask}
                 markTask={markTask}
                 removeTask={removeTask}
