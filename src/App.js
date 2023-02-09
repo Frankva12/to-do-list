@@ -4,14 +4,14 @@ import logo from './to-do-list.png'
 import { Button, Card, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Todo({ todo, index, markTodo, unmarkTodo, removeTodo }) {
+function Todo({ todo, index, markTask, unmarkTask, removeTask }) {
   return (
     <div className="todo">
       <span style={{ textDecoration: todo.isDone ? "line-through" : " " }}>{todo.text}</span>
       <div>
-        <Button variant="outline-success" onClick={() => markTodo(index)}>Complete</Button>{' '}
-        <Button variant="outline-warning" onClick={() => unmarkTodo(index)}>In progress</Button>{' '}
-        <Button variant="outline-danger" onClick={() => removeTodo(index)}>Delete</Button>
+        <Button variant="outline-success" onClick={() => markTask(index)}>Complete</Button>{' '}
+        <Button variant="outline-warning" onClick={() => unmarkTask(index)}>In progress</Button>{' '}
+        <Button variant="outline-danger" onClick={() => removeTask(index)}>Delete</Button>
       </div>
     </div>
   );
@@ -77,19 +77,19 @@ function App() {
     setTodos(newTodos);
   };
 
-  const markTodo = index => {
+  const markTask = index => {
     const newTodos = [...todos];
     newTodos[index].isDone = true;
     setTodos(newTodos);
   };
 
-  const unmarkTodo = index => {
+  const unmarkTask = index => {
     const newTodos = [...todos];
     newTodos[index].isDone = false;
     setTodos(newTodos);
   };
 
-  const removeTodo = index => {
+  const removeTask = index => {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     setTodos(newTodos);
@@ -110,9 +110,9 @@ function App() {
                 key={index}
                 index={index}
                 todo={todo}
-                unmarkTodo={unmarkTodo}
-                markTodo={markTodo}
-                removeTodo={removeTodo}
+                unmarkTask={unmarkTask}
+                markTask={markTask}
+                removeTask={removeTask}
                 />
               </Card.Body>
             </Card>
