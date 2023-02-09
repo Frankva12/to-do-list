@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react'
 import "../App.css";
 import logo from '../resources/to-do-list.png'
 import { Button, Card, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Task({ task, index, markTask, unmarkTask, removeTask }) {
+function Task({ task, index, removeTask, toogleChecked }) {
   return (
     <div className="task">
       <span style={{ textDecoration: task.isDone ? "line-through" : " " }}>{task.text}</span>
+      <Form.Check type="switch" label="Completed" checked={task.isDone} 
+      onClick={() => toogleChecked(index, task.isDone)} />
       <div>
-        <Button variant="outline-success" onClick={() => markTask(index)}>Complete</Button>{' '}
-        <Button variant="outline-warning" onClick={() => unmarkTask(index)}>In progress</Button>{' '}
         <Button variant="outline-danger" onClick={() => removeTask(index)}>Delete</Button>
       </div>
     </div>
@@ -72,24 +72,23 @@ const ToDoList = () => {
     }
   ]);
 
-  const addTask = text => {
+  const addTask = (text) => {
     const newTasks = [...tasks, { text }];
     setTasks(newTasks);
   };
 
-  const markTask = index => {
-    const newTasks = [...tasks];
-    newTasks[index].isDone = true;
-    setTasks(newTasks);
-  };
-
-  const unmarkTask = index => {
-    const newTasks = [...tasks];
-    newTasks[index].isDone = false;
-    setTasks(newTasks);
-  };
-
-  const removeTask = index => {
+    const toogleChecked = (index, isDone) => {
+        const newTasks = [...tasks];
+        if (isDone) {
+            newTasks[index].isDone = false;
+            setTasks(newTasks);
+        }else {
+            newTasks[index].isDone = true;
+            setTasks(newTasks);
+        }
+    };
+    
+  const removeTask = (index) => {
     const newTasks = [...tasks];
     newTasks.splice(index, 1);
     setTasks(newTasks);
@@ -110,8 +109,8 @@ const ToDoList = () => {
                 key={index}
                 index={index}
                 task={task}
-                unmarkTask={unmarkTask}
-                markTask={markTask}
+                checked={task.isDone}
+                toogleChecked = {toogleChecked}
                 removeTask={removeTask}
                 />
               </Card.Body>
