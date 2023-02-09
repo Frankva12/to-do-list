@@ -1,23 +1,124 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import logo from './to-do-list.png'
+import { Button, Card, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+function Todo({ todo, index, markTodo, unmarkTodo, removeTodo }) {
+  return (
+    <div className="todo">
+      <span style={{ textDecoration: todo.isDone ? "line-through" : " " }}>{todo.text}</span>
+      <div>
+        <Button variant="outline-success" onClick={() => markTodo(index)}>Complete</Button>{' '}
+        <Button variant="outline-warning" onClick={() => unmarkTodo(index)}>In progress</Button>{' '}
+        <Button variant="outline-danger" onClick={() => removeTodo(index)}>Delete</Button>
+      </div>
+    </div>
+  );
+}
+
+function FormTodo({ addTodo }) {
+  const [value, setValue] = React.useState("");
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!value) return;
+    addTodo(value);
+    setValue("");
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}> 
+    <Form.Group>
+      <Form.Label className="fs-3"><b>Add Task to complete</b></Form.Label>
+      <Form.Control type="text" className="input fs-5 mb-3 mt-2" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new task" />
+    </Form.Group>
+    <Button className="primary mb-3 mt-2 fs-5" type="submit">
+      Submit
+    </Button>
+  </Form>
+  );
+}
 
 function App() {
+  const [todos, setTodos] = React.useState([
+    {
+      text: "This is an example of a task completed",
+      isDone: true
+    },
+    {
+      text: "This is an example of a task in progress",
+      isDone: false
+    },
+    {
+      text: "This is an example of a task in progress",
+      isDone: false
+    },
+    {
+      text: "This is an example of a task in progress",
+      isDone: false
+    },
+    {
+      text: "This is an example of a task in progress",
+      isDone: false
+    },
+    {
+      text: "This is an example of a task in progress",
+      isDone: false
+    },
+    {
+      text: "This is an example of a task in progress",
+      isDone: false
+    }
+  ]);
+
+  const addTodo = text => {
+    const newTodos = [...todos, { text }];
+    setTodos(newTodos);
+  };
+
+  const markTodo = index => {
+    const newTodos = [...todos];
+    newTodos[index].isDone = true;
+    setTodos(newTodos);
+  };
+
+  const unmarkTodo = index => {
+    const newTodos = [...todos];
+    newTodos[index].isDone = false;
+    setTodos(newTodos);
+  };
+
+  const removeTodo = index => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="container justify-content-md-center">
+        <h1 className="text-center m-2">Todo List 
+        <img className="m-2" src={logo} alt="Logo"  style={{ height: 75, width: 75 }} />
+        </h1>
+        <FormTodo addTodo={addTodo} />
+        <div>
+          {todos.map((todo, index) => (
+            <Card>
+              <Card.Body>
+                <Todo
+                key={index}
+                index={index}
+                todo={todo}
+                unmarkTodo={unmarkTodo}
+                markTodo={markTodo}
+                removeTodo={removeTodo}
+                />
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
