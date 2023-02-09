@@ -6,12 +6,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Task({ task, index, removeTask, toogleChecked }) {
   return (
-    <div className="task">
-      <span style={{ textDecoration: task.isDone ? "line-through" : " " }}>{task.text}</span>
-      <Form.Check type="switch" label="Completed" checked={task.isDone} 
-      onClick={() => toogleChecked(index, task.isDone)} />
-      <div>
-        <Button variant="outline-danger" onClick={() => removeTask(index)}>Delete</Button>
+    <div className="container">
+      <div className='row'>
+        <span className='fs-5 fw-bold col-6 mb-2'  style={{ textDecoration: task.isDone ? "line-through" : " " }}>{task.text}</span>
+        <Form.Check className='col-5' type="switch" label="Completed" checked={task.isDone} onClick={() => toogleChecked(index, task.isDone)} />
+        <Button className='col' variant="outline-danger" onClick={() => removeTask(index)}>Delete</Button>
       </div>
     </div>
   );
@@ -31,7 +30,7 @@ function FormTask({ addTask }) {
     <Form onSubmit={handleSubmit}> 
     <Form.Group>
       <Form.Label className="fs-3"><b>Add Task to complete</b></Form.Label>
-      <Form.Control type="text" className="input fs-5 mb-3 mt-2" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new task" />
+      <Form.Control type="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new task" />
     </Form.Group>
     <Button className="primary mb-3 mt-2 fs-5" type="submit">
       Submit
@@ -96,22 +95,21 @@ const ToDoList = () => {
 
   return (
     <div className="app">
-      <div className="container justify-content-md-center">
-        <h1 className="text-center m-2">Todo List 
+      <div className="container justify-content-sm-center">
+        <h1 className="text-center m-2">TO-DO LIST 
         <img className="m-2" src={logo} alt="Logo"  style={{ height: 75, width: 75 }} />
         </h1>
         <FormTask addTask={addTask} />
         <div>
           {tasks.map((task, index) => (
-            <Card>
+            <Card className='mt-1'>
               <Card.Body>
                 <Task
-                key={index}
                 index={index}
                 task={task}
                 checked={task.isDone}
                 toogleChecked = {toogleChecked}
-                removeTask={removeTask}
+                removeTask = {removeTask}
                 />
               </Card.Body>
             </Card>
