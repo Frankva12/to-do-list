@@ -1,6 +1,8 @@
 .app {
   padding: 30px;
   background-color: rgb(90, 167, 127);
+  height: 100%;
+  width: 100%;
 }
 
 .task {
